@@ -1,0 +1,38 @@
+<%
+    var account = input;
+%>
+
+<!--<div class="main ">-->
+    <div class="row-fluid vpad"></div>
+    <!--<div class="row-fluid vpad"></div>-->
+
+    <div class="row-fluid well hide">
+        <div class="span8">
+            <div class="header">
+                <div class="vpad1"></div>
+                <form class="form-inline">
+                <i class="fa fa-user fa-2x"></i> <%=account.username%>
+                <select id="show" class="input-medium">
+                    <option value="chat" <%=(!account.show || account.show=='chat') ? 'selected' : ''%> >Online</option>
+                    <option value="away" <%=(account.show=='away') ? 'selected' : ''%> >Away</option>
+                    <option value="dnd" <%=(account.show=='dnd') ? 'selected' : ''%> >Do not disturb</option>
+                    <option value="xa" <%=(account.show=='xa') ? 'selected' : ''%> >Invisible</option>
+                </select>
+                <input type="text" id="message" value="<%=account.message%>" class="input-small" placeholder="Leave a message">
+                    <a id="signout" class="btn btn-small">Sign out</a>
+                    <a id="account" class="btn btn-small">Account</a>
+                </form>
+            </div>
+        </div>
+        <div class="span4">
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span4">
+            <div data-view-id="navigator" ></div>
+        </div>
+        <div class="span8 vsplit-line">
+            <div data-view-id="workbench"></div>
+        </div>
+    </div>
+<!--</div>-->

@@ -1,0 +1,38 @@
+<%
+    if(input.action=='from'){
+%>
+<div id="<%=input.id%>">
+    <div class="span1">
+        <div class="avatar">
+            <i class="fa fa-user fa-lg"></i>
+        </div>
+    </div>
+    <div class="span5">
+        <div class="bubble left">
+            <div class="bubble-content">
+                <pre ><%=input.body%></pre>
+            </div>
+        </div>
+    </div>
+</div>
+<%
+    }
+    else if(input.action=='to'){
+%>
+<div id="<%=input.id%>">
+    <div class="offset6 span5">
+        <div class="bubble right">
+            <div class="bubble-content">
+                <pre ><%=input.body%></pre>
+            </div>
+        </div>
+    </div>
+    <div class="span1">
+        <div class="avatar">
+            <i class="fa fa-user fa-lg"></i>
+        </div>
+    </div>
+</div>
+<%
+    }
+%>

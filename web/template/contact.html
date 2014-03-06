@@ -1,0 +1,15 @@
+<%
+    var item = input;
+%>
+
+<i id="icon" class="fa fa-user"></i>
+<a id="contact" href="xmpp:<%=item.jid%>" data-toggle="tab">
+    <%=item.jid%>
+</a>
+<label class=""><%=item.message%></label>
+<a id="remove" class="btn btn-mini">
+    <i class="fa fa-minus"></i>
+</a>
+<a id="info" class="btn btn-mini">
+    <i class="fa fa-info"></i>
+</a>

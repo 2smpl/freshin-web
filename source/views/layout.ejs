@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title><%=appTitle%></title>
+    <link rel="shortcut icon" href="./web/img/settings_32.png">
+    <link rel="stylesheet" href="<%=asset.mainCss%>">
+    <!--[if IE 7]>
+    <link rel="stylesheet" href="./public/font-awesome/css/font-awesome-ie7.min.css">
+    <![endif]-->
+
+    <script>
+        window.appConfig = window.appConfig || {};
+        window.appConfig.mode = '<%=asset.mode%>';
+        window.user = <%-JSON.stringify(user)%>;
+    </script>
+    <script src="<%=asset.mainJs%>" data-main="<%=asset.configJs%>"></script>
+    <style>
+        .show-border{
+            line-height: 1.1em;
+        }
+        .show-chat{
+            color: lightseagreen;
+            opacity: 0.8;
+        }
+        .show-away{
+            color: orange;
+            opacity: 0.8;
+        }
+        .show-dnd{
+            color: red;
+            opacity: 0.8;
+        }
+        .show-xa{
+            color: lightskyblue;
+            opacity: 0.8;
+        }
+        .show-offline{
+            /*color: slategrey;*/
+            color: darkgray;
+            opacity: 0.8;
+        }
+        .fa-small {
+            /*font-size: 0.6666666666666666em;*/
+            font-size: 0.9em;
+            line-height: 0.75em;
+            vertical-align: -15%;
+        }
+        .stretch-height{
+            background: #EFF3F7;
+            position: absolute;
+            top: 0px;
+            bottom: 0px;
+            /*background-color: rgb(53, 56, 61);*/
+        }
+        .row-fluid [class*="span"].vsplit-line{
+            padding-left: 18px;
+            border-left: 1px solid #ddd;
+        }
+        .frame-table{
+            display: table;
+            height: 100%;
+            width:100%;
+            /*position: absolute;*/
+            /*left: 0;*/
+            /*right: 0;*/
+            /*bottom:0;*/
+        }
+        .tile-padding{
+            display: table-row;
+            width: 100%;
+            height: 40px;
+        }
+        .tile-body{
+            display: table-row;
+            width: 100%;
+            height: 100%;
+        }
+        .tile-log{
+            display: table-row;
+            width: 100%;
+            height: 40px;
+        }
+        .navline{
+            border-bottom: 1px solid #ddd;
+        }
+        .navline li {
+            float: left;
+            margin-bottom: -1px;
+            line-height: 20px;
+
+        }
+        .msg-list{
+            /*position: absolute;*/
+            /*z-index:-100;*/
+            /*border: solid 1px #000;*/
+            /*background-color: #EFF3F7;*/
+            display: block;
+            height: 250px;
+            width: 100%;
+            /*overflow: auto;*/
+            /*border: 1px solid black;*/
+            overflow-x: hidden;
+            overflow-y: scroll;
+
+            /*overflow-y: scroll;*/
+        }
+        html {overflow-y: hidden;}
+        .conversation{display: table; height: 100%;width: 100%;}
+        .cvs{
+            visibility: hidden;
+        }
+        .cvs-head{
+            display: table-row;
+            width: 100%;
+            height: 30px;
+        }
+        .cvs-list{
+            display: table-row;
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+            overflow-y: hidden;
+        }
+        .cvs-edit{
+            display: table-row;
+            width: 100%;
+            height: 60px;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 2px solid #ddd;
+        }
+        textarea.cvs-ta{
+            width: 100px;
+            margin-top: 10px;
+            /*border: 0px solid transparent;*/
+        }
+        .well{
+            /*background-color: #EFF3F7;*/
+            background-color: transparent;
+        }
+        .avatar {
+            display: inline-block;
+            position:relative;
+            padding:8px;
+            margin:1em 0em 1em;
+            min-height: 20px;
+        }
+        .bubble{
+            display: inline-block;
+            position:relative;
+            padding:8px;
+            margin:1em 0em 1em;
+            /*line-height:1.2;*/
+            text-align:center;
+            min-width: 50px;
+            max-width: 300px;
+        }
+        .bubble{
+            border: 1px solid #7AA23F;
+            border-color: transparent;
+            /*-moz-border-top-colors: none;*/
+            /*-moz-border-right-colors: none;*/
+            /*-moz-border-bottom-colors: none;*/
+            /*-moz-border-left-colors: none;*/
+
+            border-radius:5px;
+            -moz-border-radius:5px;
+            -webkit-border-radius:5px;
+
+            box-shadow: 0px 1px 0px #DBDBDB;
+        }
+
+        .bubble.left{
+            /*text-align: left;*/
+            float: left;
+            background-color: #B2CF73;
+            background: -webkit-gradient(linear, left top,left bottom, from(#C4DE94),to(#A4C363), color-stop(0.1,#B4D174),color-stop(0.2,#B2CF73), color-stop(0.3,#B2CF73), color-stop(0.4,#B2CF73), color-stop(0.5,#B2CF73),color-stop(0.6,#AFCC74), color-stop(0.7,#ABCA6C),color-stop(0.8,#AECA72), color-stop(0.9,#A9C572),color-stop(1.0,#A4C363));
+            background-image: -moz-linear-gradient(top, #B4D174 10%, #B2CF7320%, #B2CF73 30%, #B2CF73 40%, #B2CF73 50%, #AFCC74 60%, #ABCA6C70%, #A9C572 80%, #AECA72 90%, #A4C363 100%);
+            border: 1px solid #7AA23F;
+
+            /*background:-webkit-gradient(linear, left top, left bottom, from(#bbc76b), to(#5bb75b));*/
+            /*background:-moz-linear-gradient(top, #f9d835, #f3961c);*/
+            /*background:-o-linear-gradient(top, #f9d835, #f3961c);*/
+            /*background:linear-gradient(top, #f9d835, #f3961c);*/
+        }
+        .bubble.right{
+            /*text-align: right;*/
+            float: right;
+            background-color: #E5E5E5;
+            background: -webkit-gradient(linear, left top,left bottom, from(#F4F4F4),to(#E5E5E5), color-stop(0.1,#F3F3F3),color-stop(0.3,#F1F1F1),color-stop(0.5,#ECECEC),color-stop(0.7,#E9E9E9),color-stop(0.9,#E6E6E6),color-stop(1.0,#E5E5E5));
+            background-image: -moz-linear-gradient(top, #F3F3F3 10%, #F1F1F1 30%, #ECECEC 50%, #E9E9E9 70%, #E6E6E6 90%, #E5E5E5 100%);
+            border: 1px solid #AFAFAF;
+            /*background:-webkit-gradient(linear, left top, left bottom, from(#bbc76b), to(#5bb75b));*/
+            /*background:-moz-linear-gradient(top, #f9d835, #f3961c);*/
+            /*background:-o-linear-gradient(top, #f9d835, #f3961c);*/
+            /*background:linear-gradient(top, #f9d835, #f3961c);*/
+        }
+
+        .bubble-content{
+            font-weight: normal;
+            font-size: 14px;
+            min-height: 20px;
+            word-wrap: break-word;
+        }
+
+        .bubble.left .bubble-content{
+            text-align: left;
+        }
+        .bubble.right .bubble-content{
+            text-align: left;
+        }
+
+        .bubble-content > pre{
+            background: transparent;
+            margin: 0px;
+            padding: 0px;
+            border: solid 0px transparent;
+
+            color: rgb(3, 3, 3);
+            cursor: default;
+            font-family: "elvetica, 微软雅黑, 黑体, Arial, Tahoma";
+            font-size: 14.166666030883789px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: normal;
+
+        }
+
+        .bubble.left:after {
+            content:"\00a0";
+            width:0;
+            height:0;
+
+            display:block;
+            border-style:solid;
+            border-width:7px 20px 7px 0;
+            border-color:transparent #A4C363;
+            /*border-color:transparent #7AA23F;*/
+
+            position:absolute;
+            z-index:0;
+            top:10px;
+            left:-20px;
+        }
+        .bubble.right:after {
+            content:"\00a0";
+            width:0;
+            height:0;
+
+            display:block;
+            border-style:solid;
+            border-width:7px 0 7px 20px;
+            border-color:transparent #E5E5E5;
+
+            position: absolute;
+            z-index:0;
+            top:10px;
+            right:-20px;
+        }
+
+    </style>
+</head>
+<body>
+<header>
+    <div class="main-header navbar navbar-inverse1 navbar-fixed-top"><div class="navbar-inner"><div class="container">
+
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".head-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </a>
+        <a class="brand" href="/">
+            <div class="hide" style="font-weight: bold;">
+                <!--<img class="logo" src="../public/tomatodo/img/tomato2_32.png">-->
+                <%=appName%> <i class="icon-home"></i>
+            </div>
+        </a>
+
+<!--
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa-stack">
+                            <i class="fa fa-square-o fa-stack-2x show-border show-away"></i>
+                            <i class="fa fa-user fa-stack-1x"></i>
+                        </span></a>
+
+-->
+
+        <div class="nav-collapse head-collapse">
+            <ul class="nav">
+                <li class="dropdown hide" id="account-show">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a ><i value="chat" class="fa fa-square fa-small fa-border show-chat"></i> <small>在线</small></a>
+                        </li>
+                        <li>
+                            <a ><i value="away" class="fa fa-square fa-small fa-border show-away"></i> <small>离开</small></a>
+                        </li>
+                        <li>
+                            <a ><i value="dnd" class="fa fa-square fa-small fa-border show-dnd"></i> <small>请勿打扰</small></a>
+                        </li>
+                        <li>
+                            <a ><i value="xa" class="fa fa-square fa-small fa-border show-xa"></i> <small>隐身</small></a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a ><i value="offline" class="fa fa-square fa-small fa-border show-offline"></i> <small>离线</small></a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a ><i value="signout" class="fa fa-small fa-border fa-sign-out"></i> <small> 退出</small></a>
+                        </li>
+                    </ul>
+                </li>
+
+<!--
+                <li class="">
+                    <a href="forum" class="link" set="forum"><i class="icon-question-sign"></i> 交流</a>
+                </li>
+                <li class="">
+                    <a href="about" class="link" set="about"><i class="icon-info-sign"></i> 关于</a>
+                </li>
+-->
+            </ul>
+            <ul class="nav pull-right">
+                <li class="" id="debug">
+                    <a href="" class="link"><i class="fa fa-wrench"></i></a>
+                </li>
+                <li class="">
+                    <a href="" class="link"><i class="fa fa-question"></i></a>
+                </li>
+                <li class="">
+                    <a href="" class="link"><i class="fa fa-info"></i></a>
+                </li>
+                <li class="">
+                    <a href="" class="link"><i class="fa fa-cog"></i></a>
+                </li>
+<!--
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle r-link-small" data-toggle="dropdown"><i class="icon-user"></i>  <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="javascript:"> 个人中心</a>
+                        </li>
+                        <li>
+                            <a href="javascript:"> 修改密码</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="javascript:">注册</a>
+                        </li>
+                        <li>
+                            <a href="javascript:">找回密码</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="javascript:">退出</a>
+                        </li>
+                    </ul>
+                </li>
+-->
+            </ul>
+        </div><!--/.nav-collapse -->
+
+    </div></div></div>
+</header>
+
+<section>
+<div class="main-frame" >
+    <div data-view-id="manager" ></div>
+</div>
+</section>
+
+<footer>
+</footer>
+</body>
+</html>
