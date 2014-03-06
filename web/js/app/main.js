@@ -1,8 +1,8 @@
-define(['./Liao', 'JST', 'config'],
-function(Liao, JST, config) {
+define(['./Freshin', 'JST', 'config'],
+function(Freshin, JST, config) {
     var appConfig = window.appConfig;
 
-    var App = new Liao({
+    var App = new Freshin({
         mode: appConfig.mode,
         JST: JST
     });

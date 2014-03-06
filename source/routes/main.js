@@ -14,13 +14,4 @@ module.exports = function(app) {
     app.get('/roster',      indexPage);
     app.get('/desk',      indexPage);
 
-    app.get('/thing/:id/:action', function(req, res) {
-        var thingId = req.params.id;
-        var uid = req.user.id;
-        var action = req.params.action;
-        logger.debug(util.format('User [%s] %ss thing [%s]', uid, action, thingId));
-
-        res.json(200, {});
-    });
-
 };

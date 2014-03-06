@@ -9,7 +9,6 @@
     "express": "3.2.5",
     "ejs": "~0.8.4",
     "ejs-locals": "~1.0.2",
-    "redis": "~0.8.3",
     "log4js": "~0.6.6",
     "underscore": "~1.5.1"
   },

@@ -16,7 +16,6 @@
     <script>
         window.appConfig = window.appConfig || {};
         window.appConfig.mode = '<%=asset.mode%>';
-        window.user = <%-JSON.stringify(user)%>;
     </script>
     <script src="<%=asset.mainJs%>" data-main="<%=asset.configJs%>"></script>
     <style>
